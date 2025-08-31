@@ -1,51 +1,57 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AppProvider } from './context/AppContext'
-import AppLayout from './components/Layout/AppLayout'
-import Onboarding from './pages/Onboarding'
-import Home from './pages/Home'
+import DashboardLayout from './components/Layout/DashboardLayout'
+import Dashboard from './pages/Dashboard'
+import Challenges from './pages/Challenges'
 import Discover from './pages/Discover'
 import Challenge from './pages/Challenge'
 import Achievements from './pages/Achievements'
+import Analytics from './pages/Analytics'
 import Profile from './pages/Profile'
 
 function App() {
   return (
     <AppProvider>
       <Router>
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-          <div className="iphone-frame">
-            <Routes>
-              <Route path="/onboarding" element={<Onboarding />} />
-              <Route path="/" element={<Navigate to="/home" replace />} />
-              <Route path="/home" element={
-                <AppLayout>
-                  <Home />
-                </AppLayout>
-              } />
-              <Route path="/discover" element={
-                <AppLayout>
-                  <Discover />
-                </AppLayout>
-              } />
-              <Route path="/challenge/:id" element={
-                <AppLayout>
-                  <Challenge />
-                </AppLayout>
-              } />
-              <Route path="/achievements" element={
-                <AppLayout>
-                  <Achievements />
-                </AppLayout>
-              } />
-              <Route path="/profile" element={
-                <AppLayout>
-                  <Profile />
-                </AppLayout>
-              } />
-            </Routes>
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          } />
+          <Route path="/challenges" element={
+            <DashboardLayout>
+              <Challenges />
+            </DashboardLayout>
+          } />
+          <Route path="/discover" element={
+            <DashboardLayout>
+              <Discover />
+            </DashboardLayout>
+          } />
+          <Route path="/challenge/:id" element={
+            <DashboardLayout>
+              <Challenge />
+            </DashboardLayout>
+          } />
+          <Route path="/achievements" element={
+            <DashboardLayout>
+              <Achievements />
+            </DashboardLayout>
+          } />
+          <Route path="/analytics" element={
+            <DashboardLayout>
+              <Analytics />
+            </DashboardLayout>
+          } />
+          <Route path="/profile" element={
+            <DashboardLayout>
+              <Profile />
+            </DashboardLayout>
+          } />
+        </Routes>
       </Router>
     </AppProvider>
   )
