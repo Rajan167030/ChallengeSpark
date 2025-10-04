@@ -186,4 +186,4 @@ function Challenges() {
   )
 }
 
-export default Dashboard
+export default Challenges
