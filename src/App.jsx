@@ -1,7 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AppProvider } from './context/AppContext'
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
 import DashboardLayout from './components/Layout/DashboardLayout'
+import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Challenges from './pages/Challenges'
 import Discover from './pages/Discover'
@@ -12,48 +15,65 @@ import Profile from './pages/Profile'
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
-          } />
-          <Route path="/challenges" element={
-            <DashboardLayout>
-              <Challenges />
-            </DashboardLayout>
-          } />
-          <Route path="/discover" element={
-            <DashboardLayout>
-              <Discover />
-            </DashboardLayout>
-          } />
-          <Route path="/challenge/:id" element={
-            <DashboardLayout>
-              <Challenge />
-            </DashboardLayout>
-          } />
-          <Route path="/achievements" element={
-            <DashboardLayout>
-              <Achievements />
-            </DashboardLayout>
-          } />
-          <Route path="/analytics" element={
-            <DashboardLayout>
-              <Analytics />
-            </DashboardLayout>
-          } />
-          <Route path="/profile" element={
-            <DashboardLayout>
-              <Profile />
-            </DashboardLayout>
-          } />
-        </Routes>
-      </Router>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Dashboard />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/challenges" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Challenges />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/discover" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Discover />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/challenge/:id" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Challenge />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/achievements" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Achievements />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/analytics" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Analytics />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Profile />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </Router>
+      </AppProvider>
+    </AuthProvider>
   )
 }
 
